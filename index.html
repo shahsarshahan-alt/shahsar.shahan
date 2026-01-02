@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="fa" dir="rtl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shahsar</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Estedad:wght@300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Yekan+Bakh:wght@300;400;500;600;700;800;900&display=swap');
+    
+    * {
+      font-family: 'Vazirmatn', sans-serif;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #1a1a1a 0%, #4a5d23 50%, #1a1a1a 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .gradient-bg::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+      animation: pulse 15s ease-in-out infinite;
+    }
+    
+    .gradient-bg::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.08) 50%, transparent 70%);
+      animation: shimmer 8s linear infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+    }
+    
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) rotate(45deg); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-25px) rotate(5deg); }
+    }
+    
+    @keyframes glow {
+      0%, 100% { 
+        box-shadow: 0 0 40px rgba(202, 138, 4, 0.7), 
+                    0 0 80px rgba(74, 93, 35, 0.4),
+                    0 20px 60px rgba(202, 138, 4, 0.6);
+      }
+      50% { 
+        box-shadow: 0 0 60px rgba(202, 138, 4, 0.9), 
+                    0 0 120px rgba(74, 93, 35, 0.6),
+                    0 30px 80px rgba(202, 138, 4, 0.8);
+      }
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .card {
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      background: linear-gradient(145deg, #ffffff 0%, #fefce8 100%);
+      border: 3px solid transparent;
+      position: relative;
+      overflow: hidden;
+      animation: slideIn 0.8s ease-out forwards;
+    }
+    
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.3s; }
+    .card:nth-child(3) { animation-delay: 0.5s; }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, 
+        transparent 30%, 
+        rgba(74, 93, 35, 0.15) 40%,
+        rgba(202, 138, 4, 0.12) 50%, 
+        transparent 60%);
+      opacity: 0;
+      transition: all 0.8s ease;
+      transform: rotate(0deg);
+    }
+    
+    .card:hover::before {
+      opacity: 1;
+      transform: rotate(180deg);
+    }
+    
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #1a1a1a, #4a5d23, #ca8a04);
+      transform: scaleX(0);
+      transition: transform 0.5s ease;
+    }
+    
+    .card:hover::after {
+      transform: scaleX(1);
+    }
+    
+    .card:hover {
+      transform: translateY(-20px) scale(1.05);
+      box-shadow: 0 35px 70px rgba(74, 93, 35, 0.5), 
+                  0 0 60px rgba(202, 138, 4, 0.4),
+                  inset 0 0 30px rgba(202, 138, 4, 0.15);
+      border-color: #ca8a04;
+    }
+    
+    .emoji-icon {
+      display: inline-block;
+      animation: float 4s ease-in-out infinite;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+      font-size: 5rem;
+    }
+    
+    .emoji-icon:hover {
+      animation: float 1s ease-in-out infinite;
+      transform: scale(1.2);
+      filter: drop-shadow(0 15px 30px rgba(0,0,0,0.3));
+    }
+    
+    .btn-map {
+      transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      background: linear-gradient(135deg, #ca8a04 0%, #4a5d23 50%, #ca8a04 100%);
+      background-size: 200% auto;
+      animation: glow 3s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
+      border: 4px solid rgba(255, 255, 255, 0.4);
+    }
+    
+    .btn-map::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+      animation: pulse 5s ease-in-out infinite;
+    }
+    
+    .btn-map::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+      animation: shimmer 3s linear infinite;
+    }
+    
+    .btn-map:hover {
+      transform: scale(1.25) translateY(-8px) rotate(-2deg);
+      box-shadow: 0 30px 70px rgba(202, 138, 4, 0.8), 
+                  0 0 100px rgba(74, 93, 35, 0.6),
+                  inset 0 0 40px rgba(255,255,255,0.2);
+      background-position: right center;
+      border-color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .phone-badge {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(20px);
+      border: 3px solid rgba(255, 255, 255, 0.5);
+      transition: all 0.5s ease;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .phone-badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.6s ease;
+    }
+    
+    .phone-badge:hover::before {
+      left: 100%;
+    }
+    
+    .phone-badge:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(1.12) translateY(-5px);
+      box-shadow: 0 20px 50px rgba(255,255,255,0.4), 
+                  0 0 40px rgba(255,255,255,0.3);
+      border-color: rgba(255, 255, 255, 0.7);
+    }
+    
+    .title-glow {
+      text-shadow: 0 0 50px rgba(255,255,255,0.7), 
+                   0 0 100px rgba(255,255,255,0.5),
+                   0 8px 20px rgba(0,0,0,0.3);
+      animation: titlePulse 4s ease-in-out infinite;
+    }
+    
+    @keyframes titlePulse {
+      0%, 100% { 
+        text-shadow: 0 0 50px rgba(255,255,255,0.7), 
+                     0 0 100px rgba(255,255,255,0.5),
+                     0 8px 20px rgba(0,0,0,0.3);
+      }
+      50% { 
+        text-shadow: 0 0 80px rgba(255,255,255,0.9), 
+                     0 0 150px rgba(255,255,255,0.7),
+                     0 12px 30px rgba(0,0,0,0.4);
+        transform: scale(1.02);
+      }
+    }
+    
+    .section-pattern {
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(74, 93, 35, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(202, 138, 4, 0.08) 0%, transparent 50%);
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full overflow-auto">
+  <div class="w-full min-h-full flex flex-col"><!-- Header Section -->
+   <header class="gradient-bg text-white py-28 px-6" id="header">
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+     <div class="mb-8">
+      <h1 class="text-8xl font-black mb-3 title-glow" id="site-name" style="letter-spacing: 4px;">Shahsar</h1><a href="tel:09031236059" class="phone-badge inline-block px-8 py-4 rounded-full text-xl font-bold mt-5" id="phone-number"> 📞 ۰۹۰۳۱۲۳۶۰۵۹ </a>
+     </div>
+     <h2 class="text-6xl font-extrabold mb-6 mt-10" id="main-title">به دنیای الکترونیک خوش آمدید</h2>
+     <p class="text-2xl opacity-95 font-light mb-10" id="subtitle">Shahram Ahmadpour</p><!-- Map Button -->
+     <div class="mt-12"><a href="https://maps.app.goo.gl/TmaFxQAxYznVhgHN8" target="_blank" rel="noopener noreferrer" class="btn-map text-white px-16 py-7 rounded-full text-2xl font-black inline-block relative z-10 shadow-2xl" id="map-button"> 📍 مشاهده موقعیت ما </a>
+     </div>
+    </div>
+   </header><!-- Features Section -->
+   <main class="flex-1 py-24 px-6 section-pattern" id="main" style="background: linear-gradient(to bottom, #fefce8 0%, #ffffff 50%, #fef9c3 100%);">
+    <div class="max-w-6xl mx-auto">
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-12"><!-- Feature Card 1 -->
+      <div class="card rounded-3xl shadow-2xl p-12" id="card-1">
+       <div class="mb-6 emoji-icon">
+        🚀
+       </div>
+       <h3 class="text-3xl font-extrabold mb-5" id="feature-title-1" style="color: #3f6212;">ارسال سریع</h3>
+       <p class="text-gray-600 text-lg leading-relaxed" id="feature-desc-1">سرعت ارسال محصول بالا</p>
+      </div><!-- Feature Card 2 -->
+      <div class="card rounded-3xl shadow-2xl p-12" id="card-2">
+       <div class="mb-6 emoji-icon" style="animation-delay: 1s;">
+        💰
+       </div>
+       <h3 class="text-3xl font-extrabold mb-5" id="feature-title-2" style="color: #3f6212;">قیمت مناسب</h3>
+       <p class="text-gray-600 text-lg leading-relaxed" id="feature-desc-2">بهترین قیمت‌ها برای شما</p>
+      </div><!-- Feature Card 3 -->
+      <div class="card rounded-3xl shadow-2xl p-12" id="card-3">
+       <div class="mb-6 emoji-icon" style="animation-delay: 2s;">
+        ⭐
+       </div>
+       <h3 class="text-3xl font-extrabold mb-5" id="feature-title-3" style="color: #3f6212;">ضمانت کالا</h3>
+       <p class="text-gray-600 text-lg leading-relaxed" id="feature-desc-3">اطمینان از کیفیت محصولات</p>
+      </div>
+     </div>
+    </div>
+   </main><!-- Footer -->
+   <footer class="text-white py-12 px-6" id="footer" style="background: linear-gradient(135deg, #1a1a1a 0%, #3f6212 100%); box-shadow: 0 -10px 40px rgba(0,0,0,0.3);">
+    <div class="max-w-6xl mx-auto text-center">
+     <p class="text-gray-100 text-xl font-semibold" id="footer-text">© ۲۰۲۴ Shahsar - تمامی حقوق محفوظ است</p>
+    </div>
+   </footer>
+  </div>
+  <script>
+    const defaultConfig = {
+      background_color: "#1a1a1a",
+      surface_color: "#fefce8",
+      text_color: "#1a1a1a",
+      primary_action_color: "#3f6212",
+      secondary_action_color: "#ca8a04",
+      font_family: "Estedad",
+      font_size: 16,
+      site_name: "Shahsar",
+      phone_number: "۰۹۰۳��۲۳۶۰۵۹",
+      main_title: "به دنیای الکترونیک خوش آمدید",
+      subtitle: "Shahram Ahmadpour",
+      feature_title_1: "ارسال سریع",
+      feature_desc_1: "سرعت ارسال محصول بالا",
+      feature_title_2: "قیمت مناسب",
+      feature_desc_2: "بهترین قیمت‌ها برای شما",
+      feature_title_3: "ضمانت کالا",
+      feature_desc_3: "اطمینان از کیفیت محصولات",
+      map_button_text: "📍 مشاهده موقعیت ما",
+      footer_text: "© ۲۰۲۴ Shahsar - تمامی حقوق محفوظ است"
+    };
+
+    async function onConfigChange(config) {
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseFontSize = config.font_size || defaultConfig.font_size;
+      const backgroundColor = config.background_color || defaultConfig.background_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const primaryActionColor = config.primary_action_color || defaultConfig.primary_action_color;
+      const secondaryActionColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+      
+      // Apply colors
+      const header = document.getElementById('header');
+      header.style.background = `linear-gradient(135deg, ${backgroundColor} 0%, #4a5d23 50%, ${backgroundColor} 100%)`;
+      
+      const main = document.getElementById('main');
+      main.style.background = `linear-gradient(to bottom, ${surfaceColor} 0%, #ffffff 50%, #fef9c3 100%)`;
+      
+      const mapButton = document.getElementById('map-button');
+      mapButton.style.background = `linear-gradient(135deg, ${secondaryActionColor} 0%, #4a5d23 50%, ${secondaryActionColor} 100%)`;
+      
+      const footer = document.getElementById('footer');
+      footer.style.background = `linear-gradient(135deg, ${textColor} 0%, #3f6212 100%)`;
+      
+      const featureTitles = [
+        document.getElementById('feature-title-1'),
+        document.getElementById('feature-title-2'),
+        document.getElementById('feature-title-3')
+      ];
+      featureTitles.forEach(title => {
+        title.style.color = primaryActionColor;
+      });
+      
+      // Apply fonts
+      const fontStack = `${customFont}, sans-serif`;
+      document.body.style.fontFamily = fontStack;
+      
+      // Apply font sizes and content
+      const siteName = document.getElementById('site-name');
+      siteName.style.fontSize = `${baseFontSize * 4}px`;
+      siteName.textContent = config.site_name || defaultConfig.site_name;
+      
+      const phoneNumber = document.getElementById('phone-number');
+      phoneNumber.style.fontSize = `${baseFontSize * 1.25}px`;
+      phoneNumber.textContent = `📞 ${config.phone_number || defaultConfig.phone_number}`;
+      phoneNumber.href = `tel:${(config.phone_number || defaultConfig.phone_number).replace(/[۰-۹]/g, d => '۰۱۲۳۴��۶۷۸۹'.indexOf(d))}`;
+      
+      const mainTitle = document.getElementById('main-title');
+      mainTitle.style.fontSize = `${baseFontSize * 3}px`;
+      mainTitle.textContent = config.main_title || defaultConfig.main_title;
+      
+      const subtitle = document.getElementById('subtitle');
+      subtitle.style.fontSize = `${baseFontSize * 1.5}px`;
+      subtitle.textContent = config.subtitle || defaultConfig.subtitle;
+      
+      const featureTitleElements = [
+        document.getElementById('feature-title-1'),
+        document.getElementById('feature-title-2'),
+        document.getElementById('feature-title-3')
+      ];
+      featureTitleElements.forEach((title, index) => {
+        title.style.fontSize = `${baseFontSize * 1.875}px`;
+        title.textContent = config[`feature_title_${index + 1}`] || defaultConfig[`feature_title_${index + 1}`];
+      });
+      
+      const featureDescs = [
+        document.getElementById('feature-desc-1'),
+        document.getElementById('feature-desc-2'),
+        document.getElementById('feature-desc-3')
+      ];
+      featureDescs.forEach((desc, index) => {
+        desc.style.fontSize = `${baseFontSize * 1.125}px`;
+        desc.textContent = config[`feature_desc_${index + 1}`] || defaultConfig[`feature_desc_${index + 1}`];
+      });
+      
+      mapButton.style.fontSize = `${baseFontSize * 1.5}px`;
+      mapButton.textContent = config.map_button_text || defaultConfig.map_button_text;
+      
+      const footerText = document.getElementById('footer-text');
+      footerText.style.fontSize = `${baseFontSize * 1.25}px`;
+      footerText.textContent = config.footer_text || defaultConfig.footer_text;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => {
+              config.background_color = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => {
+              config.surface_color = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ surface_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.primary_action_color || defaultConfig.primary_action_color,
+            set: (value) => {
+              config.primary_action_color = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ primary_action_color: value });
+              }
+            }
+          },
+          {
+            get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+            set: (value) => {
+              config.secondary_action_color = value;
+              if (window.elementSdk) {
+                window.elementSdk.setConfig({ secondary_action_color: value });
+              }
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            if (window.elementSdk) {
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            if (window.elementSdk) {
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["site_name", config.site_name || defaultConfig.site_name],
+        ["phone_number", config.phone_number || defaultConfig.phone_number],
+        ["main_title", config.main_title || defaultConfig.main_title],
+        ["subtitle", config.subtitle || defaultConfig.subtitle],
+        ["feature_title_1", config.feature_title_1 || defaultConfig.feature_title_1],
+        ["feature_desc_1", config.feature_desc_1 || defaultConfig.feature_desc_1],
+        ["feature_title_2", config.feature_title_2 || defaultConfig.feature_title_2],
+        ["feature_desc_2", config.feature_desc_2 || defaultConfig.feature_desc_2],
+        ["feature_title_3", config.feature_title_3 || defaultConfig.feature_title_3],
+        ["feature_desc_3", config.feature_desc_3 || defaultConfig.feature_desc_3],
+        ["map_button_text", config.map_button_text || defaultConfig.map_button_text],
+        ["footer_text", config.footer_text || defaultConfig.footer_text]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b726bbcf6b0afa0',t:'MTc2NzI3NDc0Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
